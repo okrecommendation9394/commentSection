@@ -10,7 +10,9 @@ export {
   data,
   updates,
 };
-const data = JSON.parse(JSON.stringify(mydata)).default;
+const myDataString = JSON.stringify(mydata);
+localStorage.setItem("data", myDataString);
+const data = JSON.parse(localStorage.getItem("data"));
 const comments = data.comments;
 const commentsContainer = document.querySelector(".comments-container");
 const replyContainer = document.querySelector(".reply-container");

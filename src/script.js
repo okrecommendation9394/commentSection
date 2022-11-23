@@ -147,10 +147,36 @@ function process() {
     });
   });
 }
+const body = document.querySelector("body");
+const overlay = document.createElement("div");
+overlay.classList.add("overlay");
+body.style.position = "relative";
+const popup = document.createElement("div");
+popup.classList.add("popup");
+popup.innerHTML = `
+<h3>Delete comment</h3>
+<p>Are you sure you want to delete this comment?
+This will remove the comment and can't be undone</p>
+<button class='yes' id='yes'>YES,DELETE</button>
+<button class='no' id='no'>NO,CANCEL</button>
+`;
 function deleteProcess() {
   deleteBtns.forEach((deleteBtn) => {
     deleteBtn.addEventListener("click", () => {
-      deleteBtn.parentElement.parentElement.remove();
+      body.appendChild(overlay);
+      body.appendChild(popup);
+      const yes = document.getElementById("yes");
+      const no = document.getElementById("no");
+
+      yes.addEventListener("click", () => {
+        deleteBtn.parentElement.parentElement.remove();
+        overlay.remove();
+        popup.remove();
+      });
+      no.addEventListener("click", () => {
+        overlay.remove();
+        popup.remove();
+      });
     });
   });
 }
